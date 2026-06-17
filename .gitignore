@@ -53,6 +53,7 @@ config/*.yml
 !config/addo.yml
 !config/bodgeit.yml
 !config/ctf.yml
+!config/custom-environment-variables.yml
 !config/fbctf.yml
 !config/default.yml
 !config/juicebox.yml

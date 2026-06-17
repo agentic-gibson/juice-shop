@@ -20,6 +20,11 @@ export interface ApplicationConfig {
   altcoinName: string
   privacyContactEmail: string
   customMetricsPrefix: string
+  branding: {
+    showSupportLinks: boolean
+    translationOverrides: Record<string, string | Record<string, string>>
+    cssVariables: Record<string, string>
+  }
   chatBot: {
     name: string
     avatar: string

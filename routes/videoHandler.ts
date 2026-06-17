@@ -65,6 +65,7 @@ export const promotionVideo = () => {
       template = template.replace(/_navColor_/g, theme.navColor)
       template = template.replace(/_primLight_/g, theme.primLight)
       template = template.replace(/_primDark_/g, theme.primDark)
+      template = template.replace(/_logo_/g, utils.extractFilename(config.get('application.logo')))
       const pug = (await import('pug')).default
       const fn = pug.compile(template)
       let compiledTemplate = fn()

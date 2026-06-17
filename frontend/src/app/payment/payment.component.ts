@@ -69,7 +69,8 @@ export class PaymentComponent implements OnInit {
   public card: any = {}
   public blueSkyUrl = null
   public redditUrl = null
-  public applicationName = 'OWASP Juice Shop'
+  public applicationName = ''
+  public showSupportLinks = true
   private campaignCoupon: string
   public couponControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)])
   public clientDate: any
@@ -107,15 +108,18 @@ export class PaymentComponent implements OnInit {
 
     this.configurationService.getApplicationConfiguration().subscribe({
       next: (config) => {
-        if (config?.application?.social) {
-          if (config.application.social.blueSkyUrl) {
+        if (config?.application) {
+          if (config.application.social?.blueSkyUrl) {
             this.blueSkyUrl = config.application.social.blueSkyUrl
           }
-          if (config.application.social.redditUrl) {
+          if (config.application.social?.redditUrl) {
             this.redditUrl = config.application.social.redditUrl
           }
           if (config.application.name) {
             this.applicationName = config.application.name
+          }
+          if (config.application.branding?.showSupportLinks !== undefined) {
+            this.showSupportLinks = config.application.branding.showSupportLinks
           }
         }
       },

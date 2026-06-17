@@ -1,0 +1,42 @@
+application:
+  domain: APPLICATION_DOMAIN
+  name: APPLICATION_NAME
+  logo: APPLICATION_LOGO
+  favicon: APPLICATION_FAVICON
+  theme: APPLICATION_THEME
+  showVersionNumber:
+    __name: APPLICATION_SHOW_VERSION_NUMBER
+    __format: json
+  showGitHubLinks:
+    __name: APPLICATION_SHOW_GITHUB_LINKS
+    __format: json
+  privacyContactEmail: APPLICATION_PRIVACY_CONTACT_EMAIL
+  customMetricsPrefix: APPLICATION_CUSTOM_METRICS_PREFIX
+  welcomeBanner:
+    title: APPLICATION_WELCOME_TITLE
+    message: APPLICATION_WELCOME_MESSAGE
+  cookieConsent:
+    message: APPLICATION_COOKIE_MESSAGE
+    dismissText: APPLICATION_COOKIE_DISMISS_TEXT
+    linkText: APPLICATION_COOKIE_LINK_TEXT
+    linkUrl: APPLICATION_COOKIE_LINK_URL
+  social:
+    blueSkyUrl: APPLICATION_BLUESKY_URL
+    mastodonUrl: APPLICATION_MASTODON_URL
+    twitterUrl: APPLICATION_TWITTER_URL
+    facebookUrl: APPLICATION_FACEBOOK_URL
+    slackUrl: APPLICATION_SLACK_URL
+    redditUrl: APPLICATION_REDDIT_URL
+    pressKitUrl: APPLICATION_PRESS_KIT_URL
+    nftUrl: APPLICATION_NFT_URL
+    questionnaireUrl: APPLICATION_QUESTIONNAIRE_URL
+  branding:
+    showSupportLinks:
+      __name: APPLICATION_SHOW_SUPPORT_LINKS
+      __format: json
+    translationOverrides:
+      __name: APPLICATION_TRANSLATION_OVERRIDES
+      __format: json
+    cssVariables:
+      __name: APPLICATION_CSS_VARIABLES
+      __format: json

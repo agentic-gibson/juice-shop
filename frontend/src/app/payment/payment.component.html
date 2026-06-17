@@ -71,7 +71,7 @@
     </mat-expansion-panel>
     }
     <mat-divider></mat-divider>
-    @if (mode !== 'wallet') {
+    @if (mode !== 'wallet' && showSupportLinks) {
     <mat-expansion-panel class="mat-elevation-z0" [expanded]="paymentPanelExpanded">
       <mat-expansion-panel-header class="detail-divider">
         <mat-panel-title>
@@ -84,13 +84,8 @@
             <label translate>LABEL_DONATIONS</label>
           </div>
           <small>
-            (@if (applicationName === 'OWASP Juice Shop') {
-              <span translate
-              [translateParams]="{juiceshop: 'OWASP Juice Shop'}">THANKS_FOR_SUPPORT</span>
-            } @else {
-              <span translate
+            (<span translate
               [translateParams]="{appname: applicationName}">THANKS_FOR_SUPPORT_CUSTOMIZED</span>
-            }
             <i class="fas fa-heart error icon-spacing"></i>)
           </small>
           <div class="button-container button-container-spacing">
@@ -118,13 +113,8 @@
             <label translate>LABEL_MERCHANDISE</label>
           </div>
           <small>
-            (@if (applicationName === 'OWASP Juice Shop') {
-            <span translate
-              [translateParams]="{juiceshop: 'OWASP Juice Shop'}">OFFICIAL_MERCHANDISE_STORES</span>
-            } @else {
-            <span translate
+            (<span translate
               [translateParams]="{appname: applicationName}">OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED</span>
-            }
             <i class="fas fa-thumbs-up confirmation icon-spacing"></i>)
           </small>
           <div class="button-container button-container-spacing">

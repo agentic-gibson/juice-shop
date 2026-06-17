@@ -28,6 +28,11 @@ export interface Config {
     numberOfRandomFakeUsers: number
     altcoinName: string
     privacyContactEmail: string
+    branding: {
+      showSupportLinks: boolean
+      translationOverrides: Record<string, string | Record<string, string>>
+      cssVariables: Record<string, string>
+    }
     social: {
       blueSkyUrl: string
       mastodonUrl: string

@@ -181,10 +181,10 @@ describe('NavbarComponent', () => {
         expect(console.log).toHaveBeenCalledWith('Error')
     })
 
-    it('should use default application name if not customized', () => {
+    it('should keep application name empty if not customized', () => {
         configurationService.getApplicationConfiguration.mockReturnValue(of({}))
         component.ngOnInit()
-        expect(component.applicationName).toBe('OWASP Juice Shop')
+        expect(component.applicationName).toBe('')
     })
 
     it('should use custom application name URL if configured', () => {

@@ -10,6 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { provideZoneChangeDetection } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { AppComponent } from './app.component'
+import { BrandingService } from './Services/branding.service'
 import { NavbarComponent } from './navbar/navbar.component'
 import { SidenavComponent } from './sidenav/sidenav.component'
 import { WelcomeComponent } from './welcome/welcome.component'
@@ -37,8 +38,12 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('AppComponent', () => {
   let app: AppComponent
+  let brandingService: any
 
   beforeEach(async () => {
+    brandingService = {
+      applyBranding: vi.fn()
+    }
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule,
         MatToolbarModule,
@@ -65,7 +70,7 @@ describe('AppComponent', () => {
         ServerStartedNotificationComponent,
         MatSearchBarComponent,
         AppComponent],
-      providers: [TranslateService, LoginGuard, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting(), provideZoneChangeDetection()]
+      providers: [TranslateService, LoginGuard, { provide: BrandingService, useValue: brandingService }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting(), provideZoneChangeDetection()]
     }).compileComponents()
   })
 
@@ -77,5 +82,9 @@ describe('AppComponent', () => {
 
   it('should create the app', () => {
     expect(app).toBeTruthy()
+  })
+
+  it('should apply configured branding on startup', () => {
+    expect(brandingService.applyBranding).toHaveBeenCalled()
   })
 })

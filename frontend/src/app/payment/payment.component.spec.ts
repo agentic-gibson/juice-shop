@@ -167,9 +167,9 @@ describe('PaymentComponent', () => {
         expect(component.redditUrl).toBeNull()
     })
 
-    it('should hold the default applicationName if not defined in configuration', () => {
+    it('should keep applicationName empty if not defined in configuration', () => {
         configurationService.getApplicationConfiguration.mockReturnValue(of({}))
-        expect(component.applicationName).toBe('OWASP Juice Shop')
+        expect(component.applicationName).toBe('')
     })
 
     it('should use custom blueSky URL if configured', () => {
@@ -182,6 +182,12 @@ describe('PaymentComponent', () => {
         configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { social: { redditUrl: 'reddit' } } }))
         component.ngOnInit()
         expect(component.redditUrl).toBe('reddit')
+    })
+
+    it('should hide support links if configured', () => {
+        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { social: {}, branding: { showSupportLinks: false } } }))
+        component.ngOnInit()
+        expect(component.showSupportLinks).toBe(false)
     })
 
     it('should log error while getting application configuration from backend API directly to browser console', () => {

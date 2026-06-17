@@ -1,0 +1,7 @@
+allowBuilds:
+  '@scarf/scarf': true
+  cypress: true
+  esbuild: true
+  iltorb: true
+  libxmljs2: true
+  sqlite3: true

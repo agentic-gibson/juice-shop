@@ -37,16 +37,18 @@ For a detailed introduction, full list of features and architecture overview ple
 
 ## Table of contents
 
+- [Table of contents](#table-of-contents)
 - [Setup](#setup)
-    - [From Sources](#from-sources)
-    - [Packaged Distributions](#packaged-distributions)
-    - [Docker Container](#docker-container)
-    - [Vagrant](#vagrant)
+  - [From Sources](#from-sources)
+  - [Packaged Distributions](#packaged-distributions)
+  - [Docker Container](#docker-container)
+  - [Runtime Branding Overrides](#runtime-branding-overrides)
+  - [Vagrant](#vagrant)
 - [Demo](#demo)
 - [Documentation](#documentation)
-    - [Node.js version compatibility](#nodejs-version-compatibility)
-    - [Troubleshooting](#troubleshooting)
-    - [Official companion guide](#official-companion-guide)
+  - [Node.js version compatibility](#nodejs-version-compatibility)
+  - [Troubleshooting](#troubleshooting)
+  - [Official companion guide](#official-companion-guide)
 - [Contributing](#contributing)
 - [References](#references)
 - [Merchandise](#merchandise)
@@ -108,6 +110,47 @@ For a detailed introduction, full list of features and architecture overview ple
 3. Run `docker run --rm -p 127.0.0.1:3000:3000 bkimminich/juice-shop`
 4. Browse to <http://localhost:3000> (on macOS and Windows browse to
    <http://192.168.99.100:3000> if you are using docker-machine instead of the native docker installation)
+
+### Runtime Branding Overrides
+
+Common application labels, support links, and lightweight theme values can be changed at startup with environment
+variables. These overrides work with source installs, packaged distributions, and Docker containers.
+
+```bash
+APPLICATION_NAME="Alt Market" \
+APPLICATION_LOGO="AltMarket_Logo.png" \
+APPLICATION_FAVICON="favicon-alt.ico" \
+APPLICATION_THEME="bluegrey-lightgreen" \
+APPLICATION_SHOW_GITHUB_LINKS=false \
+APPLICATION_SHOW_SUPPORT_LINKS=false \
+APPLICATION_WELCOME_TITLE="Welcome to Alt Market!" \
+APPLICATION_WELCOME_MESSAGE="<p>Explore our latest offers and account features.</p>" \
+APPLICATION_COOKIE_MESSAGE="We use cookies to keep your session running." \
+APPLICATION_TRANSLATION_OVERRIDES='{"*":{"TITLE_BASKET":"Bag","TITLE_LOGIN":"Sign in"},"de":{"TITLE_BASKET":"Tasche"}}' \
+APPLICATION_CSS_VARIABLES='{"--theme-primary":"#123456","--theme-accent":"#ffcc00"}' \
+npm start
+```
+
+For Docker, pass the same variables with `-e`:
+
+```bash
+docker run --rm -p 127.0.0.1:3000:3000 \
+  -e APPLICATION_NAME="Alt Market" \
+  -e APPLICATION_SHOW_GITHUB_LINKS=false \
+  -e APPLICATION_SHOW_SUPPORT_LINKS=false \
+  -e APPLICATION_TRANSLATION_OVERRIDES='{"*":{"TITLE_BASKET":"Bag","TITLE_LOGIN":"Sign in"}}' \
+  bkimminich/juice-shop
+```
+
+Boolean variables such as `APPLICATION_SHOW_GITHUB_LINKS` and `APPLICATION_SHOW_SUPPORT_LINKS` are parsed as JSON, so
+use `true` or `false` without extra quotes. `APPLICATION_TRANSLATION_OVERRIDES` and `APPLICATION_CSS_VARIABLES` must be
+valid JSON objects. Translation overrides accept flat keys, a `*` or `default` block for all languages, and language
+specific blocks such as `en` or `de`. CSS variable overrides are applied only for keys starting with `--`.
+
+Other useful override variables include `APPLICATION_DOMAIN`, `APPLICATION_PRIVACY_CONTACT_EMAIL`,
+`APPLICATION_CUSTOM_METRICS_PREFIX`, `APPLICATION_COOKIE_DISMISS_TEXT`, `APPLICATION_COOKIE_LINK_TEXT`,
+`APPLICATION_COOKIE_LINK_URL`, and the `APPLICATION_*_URL` social link variables such as `APPLICATION_REDDIT_URL` or
+`APPLICATION_BLUESKY_URL`.
 
 ### Vagrant
 
