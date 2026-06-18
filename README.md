@@ -62,8 +62,8 @@ For a detailed introduction, full list of features and architecture overview ple
 
 ## Table of contents
 
-- [Table of contents](#table-of-contents)
 - [Application Preview](#application-preview)
+- [Table of contents](#table-of-contents)
 - [Setup](#setup)
   - [From Sources](#from-sources)
   - [Packaged Distributions](#packaged-distributions)
@@ -143,15 +143,15 @@ Common application labels, support links, and lightweight theme values can be ch
 variables. These overrides work with source installs, packaged distributions, and Docker containers.
 
 ```bash
-APPLICATION_NAME="Alt Market" \
-APPLICATION_LOGO="AltMarket_Logo.png" \
-APPLICATION_FAVICON="favicon-alt.ico" \
-APPLICATION_THEME="bluegrey-lightgreen" \
+APPLICATION_NAME='Alt Market' \
+APPLICATION_LOGO='AltMarket_Logo.png' \
+APPLICATION_FAVICON='favicon-alt.ico' \
+APPLICATION_THEME='bluegrey-lightgreen' \
 APPLICATION_SHOW_GITHUB_LINKS=false \
 APPLICATION_SHOW_SUPPORT_LINKS=false \
-APPLICATION_WELCOME_TITLE="Welcome to Alt Market!" \
-APPLICATION_WELCOME_MESSAGE="<p>Explore our latest offers and account features.</p>" \
-APPLICATION_COOKIE_MESSAGE="We use cookies to keep your session running." \
+APPLICATION_WELCOME_TITLE='Welcome to Alt Market!' \
+APPLICATION_WELCOME_MESSAGE='<p class="welcome-text">Explore our latest offers and account features.</p>' \
+APPLICATION_COOKIE_MESSAGE='We use cookies to keep your session running.' \
 APPLICATION_TRANSLATION_OVERRIDES='{"*":{"TITLE_BASKET":"Bag","TITLE_LOGIN":"Sign in"},"de":{"TITLE_BASKET":"Tasche"}}' \
 APPLICATION_CSS_VARIABLES='{"--theme-primary":"#123456","--theme-accent":"#ffcc00"}' \
 npm start
@@ -161,17 +161,25 @@ For Docker, pass the same variables with `-e`:
 
 ```bash
 docker run --rm -p 127.0.0.1:3000:3000 \
-  -e APPLICATION_NAME="Alt Market" \
+  -e APPLICATION_NAME='Alt Market' \
+  -e APPLICATION_WELCOME_MESSAGE='<p class="welcome-text">Explore our latest offers and account features.</p>' \
   -e APPLICATION_SHOW_GITHUB_LINKS=false \
   -e APPLICATION_SHOW_SUPPORT_LINKS=false \
   -e APPLICATION_TRANSLATION_OVERRIDES='{"*":{"TITLE_BASKET":"Bag","TITLE_LOGIN":"Sign in"}}' \
-  bkimminich/juice-shop
+  ghcr.io/justsml/juice-shop:latest
 ```
+
+If you want a goofy one-off version of that command, these links open a prefilled prompt in a new AI chat:
+
+- [Open in ChatGPT](https://chatgpt.com/?q=Return%20only%20the%20docker%20run%20command%20with%20the%20environment%20variables%20filled%20in%20with%20fun%2C%20random%2C%20and%20goofy%20values.%0A%0AUse%20shell-safe%20quoting%3A%0A-%20Wrap%20string%2C%20HTML%2C%20JSON%2C%20and%20CSS%20override%20values%20in%20single%20quotes.%0A-%20Keep%20boolean%20values%20as%20true%20or%20false%20without%20quotes.%0A-%20If%20HTML%20contains%20attributes%2C%20use%20double%20quotes%20inside%20the%20single-quoted%20shell%20value%2C%20for%20example%20APPLICATION_WELCOME_MESSAGE%3D'%3Cp%20class%3D%22goofy%22%3E...%3C%2Fp%3E'.%0A-%20Do%20not%20include%20unescaped%20single%20quotes%20inside%20quoted%20values.%0A%0AUse%20this%20example%20for%20reference%3A%0A%60%60%60sh%0Adocker%20run%20-it%20--rm%20%5C%0A%20%20-p%20127.0.0.1%3A3322%3A3000%20%5C%0A%20%20-e%20APPLICATION_NAME%3D'Sketch%20Market'%20%5C%0A%20%20-e%20APPLICATION_THEME%3D'bluegrey-lightgreen'%20%5C%0A%20%20-e%20APPLICATION_SHOW_GITHUB_LINKS%3Dfalse%20%5C%0A%20%20-e%20APPLICATION_SHOW_SUPPORT_LINKS%3Dfalse%20%5C%0A%20%20-e%20APPLICATION_WELCOME_TITLE%3D'Welcome%20to%20Sketch%20Market!'%20%5C%0A%20%20-e%20APPLICATION_WELCOME_MESSAGE%3D'%3Cp%20class%3D%22goofy%22%3EFind%20and%20buy%20all%20the%20sketchiest%20sketches!%3C%2Fp%3E'%20%5C%0A%20%20-e%20APPLICATION_COOKIE_MESSAGE%3D'We%20use%20cookies%20to%20hack%20the%20planet.'%20%5C%0A%20%20-e%20APPLICATION_TRANSLATION_OVERRIDES%3D'%7B%22*%22%3A%7B%22TITLE_BASKET%22%3A%22Bag%22%2C%22TITLE_LOGIN%22%3A%22Sign%20in%22%7D%2C%22de%22%3A%7B%22TITLE_BASKET%22%3A%22Tasche%22%7D%7D'%20%5C%0A%20%20-e%20APPLICATION_CSS_VARIABLES%3D'%7B%22--theme-primary%22%3A%22%23123456%22%2C%22--theme-accent%22%3A%22%23ffcc00%22%7D'%20%5C%0A%20%20ghcr.io%2Fjustsml%2Fjuice-shop%3Alatest%0A%60%60%60)
+- [Open in Claude](https://claude.ai/new?q=Return%20only%20the%20docker%20run%20command%20with%20the%20environment%20variables%20filled%20in%20with%20fun%2C%20random%2C%20and%20goofy%20values.%0A%0AUse%20shell-safe%20quoting%3A%0A-%20Wrap%20string%2C%20HTML%2C%20JSON%2C%20and%20CSS%20override%20values%20in%20single%20quotes.%0A-%20Keep%20boolean%20values%20as%20true%20or%20false%20without%20quotes.%0A-%20If%20HTML%20contains%20attributes%2C%20use%20double%20quotes%20inside%20the%20single-quoted%20shell%20value%2C%20for%20example%20APPLICATION_WELCOME_MESSAGE%3D'%3Cp%20class%3D%22goofy%22%3E...%3C%2Fp%3E'.%0A-%20Do%20not%20include%20unescaped%20single%20quotes%20inside%20quoted%20values.%0A%0AUse%20this%20example%20for%20reference%3A%0A%60%60%60sh%0Adocker%20run%20-it%20--rm%20%5C%0A%20%20-p%20127.0.0.1%3A3322%3A3000%20%5C%0A%20%20-e%20APPLICATION_NAME%3D'Sketch%20Market'%20%5C%0A%20%20-e%20APPLICATION_THEME%3D'bluegrey-lightgreen'%20%5C%0A%20%20-e%20APPLICATION_SHOW_GITHUB_LINKS%3Dfalse%20%5C%0A%20%20-e%20APPLICATION_SHOW_SUPPORT_LINKS%3Dfalse%20%5C%0A%20%20-e%20APPLICATION_WELCOME_TITLE%3D'Welcome%20to%20Sketch%20Market!'%20%5C%0A%20%20-e%20APPLICATION_WELCOME_MESSAGE%3D'%3Cp%20class%3D%22goofy%22%3EFind%20and%20buy%20all%20the%20sketchiest%20sketches!%3C%2Fp%3E'%20%5C%0A%20%20-e%20APPLICATION_COOKIE_MESSAGE%3D'We%20use%20cookies%20to%20hack%20the%20planet.'%20%5C%0A%20%20-e%20APPLICATION_TRANSLATION_OVERRIDES%3D'%7B%22*%22%3A%7B%22TITLE_BASKET%22%3A%22Bag%22%2C%22TITLE_LOGIN%22%3A%22Sign%20in%22%7D%2C%22de%22%3A%7B%22TITLE_BASKET%22%3A%22Tasche%22%7D%7D'%20%5C%0A%20%20-e%20APPLICATION_CSS_VARIABLES%3D'%7B%22--theme-primary%22%3A%22%23123456%22%2C%22--theme-accent%22%3A%22%23ffcc00%22%7D'%20%5C%0A%20%20ghcr.io%2Fjustsml%2Fjuice-shop%3Alatest%0A%60%60%60)
 
 Boolean variables such as `APPLICATION_SHOW_GITHUB_LINKS` and `APPLICATION_SHOW_SUPPORT_LINKS` are parsed as JSON, so
 use `true` or `false` without extra quotes. `APPLICATION_TRANSLATION_OVERRIDES` and `APPLICATION_CSS_VARIABLES` must be
 valid JSON objects. Translation overrides accept flat keys, a `*` or `default` block for all languages, and language
-specific blocks such as `en` or `de`. CSS variable overrides are applied only for keys starting with `--`.
+specific blocks such as `en` or `de`. Wrap HTML, JSON, CSS, and other string values in single quotes when running them
+from a shell, especially if the value contains double quotes. CSS variable overrides are applied only for keys starting
+with `--`.
 
 Other useful override variables include `APPLICATION_DOMAIN`, `APPLICATION_PRIVACY_CONTACT_EMAIL`,
 `APPLICATION_CUSTOM_METRICS_PREFIX`, `APPLICATION_COOKIE_DISMISS_TEXT`, `APPLICATION_COOKIE_LINK_TEXT`,
