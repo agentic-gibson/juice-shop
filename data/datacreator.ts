@@ -376,7 +376,7 @@ async function createMemories () {
 }
 
 async function createProducts () {
-  const products = structuredClone(config.get<ProductConfig[]>('products')).map((product) => {
+  const products = applyProductOverrides(structuredClone(config.get<ProductConfig[]>('products'))).map((product) => {
     product.price = product.price ?? Math.floor(Math.random() * 9 + 1)
     product.deluxePrice = product.deluxePrice ?? product.price
     product.description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
@@ -473,6 +473,121 @@ async function createProducts () {
     customDescription = customDescription.replace('https://owasp.slack.com', customUrl)
     return customDescription
   }
+}
+
+export function applyProductOverrides (products: ProductConfig[]) {
+  const productOverrides = parseProductOverrides(process.env.PRODUCT_OVERRIDES)
+  const nameOverrides = parseProductNameOverrides(process.env.PRODUCT_NAME_OVERRIDES)
+  const imageOverrides = parseProductImageOverrides(process.env.PRODUCT_IMAGE_OVERRIDES)
+
+  return products.map((product, index) => {
+    const originalName = product.name
+    const productOverride = productOverrides[index + 1] ?? productOverrides[originalName] ?? {}
+    const nameOverride = nameOverrides[index]
+    const imageOverride = imageOverrides[index + 1] ?? imageOverrides[originalName]
+
+    return {
+      ...product,
+      ...productOverride,
+      name: nameOverride || productOverride.name || product.name,
+      image: imageOverride || productOverride.image || product.image
+    }
+  })
+}
+
+export function parseProductNameOverrides (csv = '') {
+  const values: string[] = []
+  let value = ''
+  let isQuoted = false
+
+  for (let i = 0; i < csv.length; i++) {
+    const character = csv[i]
+    const nextCharacter = csv[i + 1]
+    if (character === '"' && isQuoted && nextCharacter === '"') {
+      value += character
+      i++
+    } else if (character === '"') {
+      isQuoted = !isQuoted
+    } else if (character === ',' && !isQuoted) {
+      values.push(value.trim())
+      value = ''
+    } else {
+      value += character
+    }
+  }
+  values.push(value.trim())
+  return values
+}
+
+export function parseProductImageOverrides (json = ''): Record<string, string> {
+  if (!json) {
+    return {}
+  }
+  try {
+    const overrides = JSON.parse(json)
+    if (!overrides || typeof overrides !== 'object' || Array.isArray(overrides)) {
+      logger.warn('Ignoring PRODUCT_IMAGE_OVERRIDES because it is not a JSON object')
+      return {}
+    }
+    return Object.entries(overrides).reduce<Record<string, string>>((validOverrides, [key, value]) => {
+      if (typeof value === 'string') {
+        validOverrides[key] = value
+      }
+      return validOverrides
+    }, {})
+  } catch (err) {
+    logger.warn(`Ignoring PRODUCT_IMAGE_OVERRIDES because it is invalid JSON: ${utils.getErrorMessage(err)}`)
+    return {}
+  }
+}
+
+export function parseProductOverrides (json = ''): Record<string, Partial<ProductConfig>> {
+  if (!json) {
+    return {}
+  }
+  try {
+    const overrides = JSON.parse(json)
+    if (!overrides || typeof overrides !== 'object' || Array.isArray(overrides)) {
+      logger.warn('Ignoring PRODUCT_OVERRIDES because it is not a JSON object')
+      return {}
+    }
+    return Object.entries(overrides).reduce<Record<string, Partial<ProductConfig>>>((validOverrides, [key, value]) => {
+      const productOverride = validProductOverride(value)
+      if (productOverride) {
+        validOverrides[key] = productOverride
+      }
+      return validOverrides
+    }, {})
+  } catch (err) {
+    logger.warn(`Ignoring PRODUCT_OVERRIDES because it is invalid JSON: ${utils.getErrorMessage(err)}`)
+    return {}
+  }
+}
+
+function validProductOverride (value: unknown): Partial<ProductConfig> | undefined {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    return undefined
+  }
+
+  const override = value as Record<string, unknown>
+  const productOverride: Partial<ProductConfig> = {}
+  if (typeof override.name === 'string') productOverride.name = override.name
+  if (typeof override.description === 'string') productOverride.description = override.description
+  if (typeof override.image === 'string') productOverride.image = override.image
+  if (typeof override.price === 'number') productOverride.price = override.price
+  if (typeof override.deluxePrice === 'number') productOverride.deluxePrice = override.deluxePrice
+  if (typeof override.limitPerUser === 'number') productOverride.limitPerUser = override.limitPerUser
+  if (typeof override.quantity === 'number') productOverride.quantity = override.quantity
+  if (Array.isArray(override.reviews)) {
+    productOverride.reviews = override.reviews.filter((review): review is { text: string, author: string } =>
+      review &&
+      typeof review === 'object' &&
+      !Array.isArray(review) &&
+      typeof review.text === 'string' &&
+      typeof review.author === 'string'
+    )
+  }
+  return productOverride
 }
 
 async function createBaskets () {
