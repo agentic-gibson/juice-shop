@@ -55,7 +55,10 @@ const validateConfig = async ({ products, memories, exitOnFailure = true }: { pr
 
 export const checkYamlSchema = (configuration = config.util.toObject()): configuration is AppConfig => {
   let success = true
-  const schemaErrors = validateSchema(configuration, { schemaPath: path.resolve('config.schema.yml'), logLevel: 'none' })
+  const schemaErrors = [
+    ...validateSchema(configurationForStaticSchemaValidation(configuration), { schemaPath: path.resolve('config.schema.yml'), logLevel: 'none' }),
+    ...validateDynamicBrandingOverrides(configuration)
+  ]
   if (schemaErrors.length !== 0) {
     logger.warn(`Config schema validation failed with ${schemaErrors.length} errors (${colors.red('ERROR')})`)
     schemaErrors.forEach(({ path, message }: { path: string, message: string }) => {
@@ -64,6 +67,55 @@ export const checkYamlSchema = (configuration = config.util.toObject()): configu
     success = false
   }
   return success
+}
+
+const configurationForStaticSchemaValidation = (configuration: unknown) => {
+  const staticConfiguration = JSON.parse(JSON.stringify(configuration))
+  const branding = staticConfiguration?.application?.branding
+  if (branding?.translationOverrides && typeof branding.translationOverrides === 'object' && !Array.isArray(branding.translationOverrides)) {
+    branding.translationOverrides = {}
+  }
+  if (branding?.cssVariables && typeof branding.cssVariables === 'object' && !Array.isArray(branding.cssVariables)) {
+    branding.cssVariables = {}
+  }
+  return staticConfiguration
+}
+
+const validateDynamicBrandingOverrides = (configuration: any) => {
+  const errors: Array<{ path: string, message: string }> = []
+  const translationOverrides = configuration?.application?.branding?.translationOverrides
+  if (translationOverrides && typeof translationOverrides === 'object' && !Array.isArray(translationOverrides)) {
+    Object.entries(translationOverrides).forEach(([key, value]) => {
+      const entryPath = `application.branding.translationOverrides.${key}`
+      if (typeof value === 'string') {
+        return
+      }
+      if (value && typeof value === 'object' && !Array.isArray(value)) {
+        Object.entries(value).forEach(([nestedKey, nestedValue]) => {
+          const nestedPath = `${entryPath}.${nestedKey}`
+          if (typeof nestedValue !== 'string') {
+            errors.push({ path: nestedPath, message: `${nestedPath} must be a string` })
+          }
+        })
+      } else {
+        errors.push({ path: entryPath, message: `${entryPath} must be a string or an object of strings` })
+      }
+    })
+  }
+
+  const cssVariables = configuration?.application?.branding?.cssVariables
+  if (cssVariables && typeof cssVariables === 'object' && !Array.isArray(cssVariables)) {
+    Object.entries(cssVariables).forEach(([key, value]) => {
+      const entryPath = `application.branding.cssVariables.${key}`
+      if (!key.startsWith('--')) {
+        errors.push({ path: entryPath, message: `${entryPath} must start with --` })
+      }
+      if (typeof value !== 'string') {
+        errors.push({ path: entryPath, message: `${entryPath} must be a string` })
+      }
+    })
+  }
+  return errors
 }
 
 export const checkMinimumRequiredNumberOfProducts = (products: ProductConfig[]) => {

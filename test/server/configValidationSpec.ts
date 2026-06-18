@@ -469,6 +469,53 @@ describe('configValidation', () => {
     expect(checkYamlSchema(config)).to.equal(true)
   })
 
+  it('should accept dynamic branding override maps', () => {
+    const config = {
+      application: {
+        branding: {
+          translationOverrides: {
+            '*': {
+              TITLE_BASKET: 'Trash Satchel',
+              TITLE_LOGIN: 'Enter the Burrow'
+            },
+            de: {
+              TITLE_BASKET: 'Muell Tasche'
+            },
+            TITLE_CONTACT: 'Burrow Mail'
+          },
+          cssVariables: {
+            '--theme-primary': '#7b2cff',
+            '--theme-accent': '#ff9f1c',
+            '--theme-background': '#fff6d6',
+            '--theme-wiggle': '13deg'
+          }
+        }
+      }
+    }
+
+    expect(checkYamlSchema(config)).to.equal(true)
+  })
+
+  it('should fail for invalid dynamic branding override values', () => {
+    const config = {
+      application: {
+        branding: {
+          translationOverrides: {
+            '*': {
+              TITLE_BASKET: 42
+            }
+          },
+          cssVariables: {
+            'theme-primary': '#7b2cff',
+            '--theme-accent': 99
+          }
+        }
+      }
+    }
+
+    expect(checkYamlSchema(config)).to.equal(false)
+  })
+
   it('should fail for a config with schema errors', () => {
     const config = {
       application: {
