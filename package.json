@@ -132,6 +132,7 @@
     "i18n": "^0.11.1",
     "js-yaml": "^3.14.0",
     "jsonwebtoken": "0.4.0",
+    "jws": "0.2.6",
     "libxmljs2": "~0.37.0",
     "marsdb": "^0.6.11",
     "material-icons": "^1.13.14",
@@ -160,11 +161,13 @@
     "winston": "^3.16.0",
     "yaml-schema-validator": "^1.2.3",
     "z85": "^0.0.2",
-    "zod": "^3.25.76"
+    "zod": "^3.25.76",
+    "rxjs": "7.8.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
+    "@types/body-parser": "^1.19.6",
     "@types/chai": "^4.3.20",
     "@types/clarinet": "^0.12.3",
     "@types/compression": "^1.8.1",
@@ -207,7 +210,7 @@
     "@types/swagger-ui-express": "^4.1.6",
     "@types/unzipper": "^0.10.10",
     "chai": "^4.5.0",
-    "concurrently": "^5.3.0",
+    "concurrently": "^10.0.3",
     "cypress": "^13.17.0",
     "eslint": "^9.39.4",
     "exif": "^0.6.0",

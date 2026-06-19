@@ -126,7 +126,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
           country = this.countryMap[challenge.key]
         }
         this.notifications.push({
-          message,
+          message: String(message),
           key: challenge.key,
           flag: challenge.flag,
           country,
