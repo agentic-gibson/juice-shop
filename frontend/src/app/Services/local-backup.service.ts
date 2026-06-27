@@ -18,7 +18,7 @@ export class LocalBackupService {
 
   private readonly VERSION = 1
 
-  async save (fileName = 'hard_commerce_lab'): Promise<void> {
+  async save (fileName = 'hard_juice_stop'): Promise<void> {
     const backup: Backup = { version: this.VERSION }
 
     backup.banners = {

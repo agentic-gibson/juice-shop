@@ -61,7 +61,7 @@ describe('LocalBackupService', () => {
         await service.save()
 
         const blob = new Blob([JSON.stringify({ version: 1, language: 'de' })], { type: 'text/plain;charset=utf-8' })
-        expect(saveFileSpy).toHaveBeenCalledWith(blob, `hard_commerce_lab-${new Date().toISOString().split('T')[0]}.json`)
+        expect(saveFileSpy).toHaveBeenCalledWith(blob, `hard_juice_stop-${new Date().toISOString().split('T')[0]}.json`)
     })
 
     it('should restore language from backup file', async () => {

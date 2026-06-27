@@ -164,7 +164,7 @@ async function createChallenges () {
     const allHintRecords = pendingHints.flatMap(({ challengeKey, hints }) =>
       hints.map((hint, index) => ({
         ChallengeId: datacache.challenges[challengeKey].id,
-        text: hint.replace(/Hard Commerce Lab/, `${config.get<string>('application.name')}`)
+        text: hint.replace(/Hard Juice Stop/, `${config.get<string>('application.name')}`)
           .replace('http://htmledit.squarefree.com', config.get<string>('challenges.overwriteUrlForCsrfChallenge')),
         order: index + 1,
         unlocked: false
@@ -465,8 +465,8 @@ async function createProducts () {
   )
 
   function customizeChangeProductChallenge (description: string, customUrl: string, customProduct: Product) {
-  let customDescription = description.replace(/Advanced Shelf Forensics Tool \(A-Saft\)/g, customProduct.name)
-  customDescription = customDescription.replace('https://chat.bike-shed.example', customUrl)
+    let customDescription = description.replace(/Advanced Shelf Forensics Tool \(A-Saft\)/g, customProduct.name)
+    customDescription = customDescription.replace('https://chat.bike-shed.example', customUrl)
     return customDescription
   }
 }

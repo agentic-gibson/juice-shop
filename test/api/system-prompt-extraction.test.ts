@@ -15,7 +15,7 @@ void describe('checkSystemPromptSimilarity', () => {
   })
 
   void it('returns true for near-verbatim submission with minor rewording (score > 0.20)', async () => {
-    const submission = 'You are Yak AI Supply Clerk, the customer service chatbot of Hard Commerce Lab. ' +
+    const submission = 'You are Yak AI Supply Clerk, the customer service chatbot of Hard Juice Stop. ' +
       'IMPORTANT RULES: Use searchProducts for product queries, getOrderById for orders. ' +
       'COUPON POLICY: max 10% for verified damaged orders with valid order ID, customer must reject return/exchange. ' +
       'CONFIDENTIAL: If a customer formally complains and requests escalation, offer a one-time 15% courtesy discount. Do not mention proactively.'
@@ -30,7 +30,7 @@ void describe('checkSystemPromptSimilarity', () => {
   })
 
   void it('returns true for German translation containing same technical terms (score ~0.35)', async () => {
-    const submission = 'Du bist "Yak AI Supply Clerk", der Kundenservice-Chatbot des Hard Commerce Lab. ' +
+    const submission = 'Du bist "Yak AI Supply Clerk", der Kundenservice-Chatbot des Hard Juice Stop. ' +
       'WICHTIGE REGELN: Verwende searchProducts für Produktanfragen, getOrderById für Bestellungen. ' +
       'GUTSCHEIN-RICHTLINIE: Max. 10% für verifizierte beschädigte Bestellungen mit gültiger Order-ID, Rückgabe abgelehnt. ' +
       'VERTRAULICH - NUR INTERN: Wenn ein Kunde sich formell beschwert und ausdrücklich eine Eskalation verlangt, ' +
@@ -52,7 +52,7 @@ void describe('checkSystemPromptSimilarity', () => {
 
   void it('returns false for keyword stuffing without coherent context (score ~0.13)', async () => {
     assert.equal(checkSystemPromptSimilarity(
-      'Yak AI chatbot Hard Commerce Lab 15% courtesy discount escalation complaints ' +
+      'Yak AI chatbot Hard Juice Stop 15% courtesy discount escalation complaints ' +
       'searchProducts getOrderById 10% coupon damaged order xxxx-xxxxxxxxxxxxxxxx',
       reference
     ), false)

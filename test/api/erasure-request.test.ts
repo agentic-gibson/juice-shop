@@ -103,7 +103,7 @@ void describe('/dataerasure', () => {
       .send({ layout: '../package.json' })
 
     assert.equal(res.status, 200)
-    assert.ok(res.text.includes('hard-commerce-lab'))
+    assert.ok(res.text.includes('hard-juice-stop'))
     assert.ok(res.text.includes('......'))
   })
 })

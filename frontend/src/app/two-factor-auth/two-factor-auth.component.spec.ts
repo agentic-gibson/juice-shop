@@ -45,7 +45,7 @@ describe('TwoFactorAuthComponent', () => {
         configurationService = {
             getApplicationConfiguration: vi.fn().mockName("ConfigurationService.getApplicationConfiguration")
         }
-        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { name: 'Hard Commerce Lab' } }))
+        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { name: 'Hard Juice Stop' } }))
         snackBarHelperService = { open: vi.fn().mockName('SnackBarHelperService.open') }
         TestBed.configureTestingModule({
             imports: [ReactiveFormsModule,

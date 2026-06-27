@@ -132,7 +132,7 @@ void describe('/ftp', () => {
       .get('/ftp/package.json.bak%2500.pdf')
       .buffer(true)
     assert.equal(res.status, 200)
-    assert.ok(responseText(res).includes('"name": "hard-commerce-lab",'))
+    assert.ok(responseText(res).includes('"name": "hard-juice-stop",'))
   })
 
   void it('GET the package.json.bak file by using Poison Null Byte attack with .md suffix', async () => {
@@ -140,7 +140,7 @@ void describe('/ftp', () => {
       .get('/ftp/package.json.bak%2500.md')
       .buffer(true)
     assert.equal(res.status, 200)
-    assert.ok(responseText(res).includes('"name": "hard-commerce-lab",'))
+    assert.ok(responseText(res).includes('"name": "hard-juice-stop",'))
   })
 
   void it('GET a restricted file directly from file system path on server by tricking route definitions fails with 403 error', async () => {

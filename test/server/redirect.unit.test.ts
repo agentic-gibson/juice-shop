@@ -71,7 +71,7 @@ void describe('redirect', () => {
   })
 
   void it('tricking the allowlist should solve "redirectChallenge"', () => {
-    req.query.to = 'http://kimminich.de?to=https://github.com/ExploitHunterApp/hard-commerce-lab'
+    req.query.to = 'http://kimminich.de?to=https://bike-shed.example/source'
     challenges.redirectChallenge = { solved: false, save } as unknown as Challenge
 
     performRedirect()(req, res, next)

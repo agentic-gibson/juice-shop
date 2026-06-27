@@ -358,10 +358,10 @@ describe('SidenavComponent', () => {
 
     describe('template rendering', () => {
         it('should render the toolbar with the application name and a navigation list', () => {
-            component.applicationName = 'HardCommerce'
+            component.applicationName = 'HardJuiceStop'
             fixture.detectChanges()
             const compiled: HTMLElement = fixture.nativeElement
-            expect(compiled.querySelector('mat-toolbar h2')?.textContent).toContain('HardCommerce')
+            expect(compiled.querySelector('mat-toolbar h2')?.textContent).toContain('HardJuiceStop')
             expect(compiled.querySelector('mat-nav-list')).toBeTruthy()
         })
 
@@ -479,22 +479,22 @@ describe('SidenavComponent', () => {
         it('should render the GitHub link when showGitHubLink is true', () => {
             component.showGitHubLink = true
             fixture.detectChanges()
-            expect((fixture.nativeElement as HTMLElement).querySelector('a[aria-label="Go to Hard Commerce Lab GitHub page"]')).toBeTruthy()
+            expect((fixture.nativeElement as HTMLElement).querySelector('a[aria-label="Go to project GitHub page"]')).toBeTruthy()
         })
 
         it('should not render the GitHub link when showGitHubLink is false', () => {
             component.showGitHubLink = false
             component.scoreBoardVisible = false
             fixture.detectChanges()
-            expect((fixture.nativeElement as HTMLElement).querySelector('a[aria-label="Go to Hard Commerce Lab GitHub page"]')).toBeNull()
+            expect((fixture.nativeElement as HTMLElement).querySelector('a[aria-label="Go to project GitHub page"]')).toBeNull()
         })
 
         it('should render the application name and version in the footer', () => {
-            component.applicationName = 'HardCommerce'
+            component.applicationName = 'HardJuiceStop'
             component.version = 'v1.2.3'
             fixture.detectChanges()
             const footer = (fixture.nativeElement as HTMLElement).querySelector('.appVersion')
-            expect(footer?.querySelector('.app-name')?.textContent).toContain('HardCommerce')
+            expect(footer?.querySelector('.app-name')?.textContent).toContain('HardJuiceStop')
             expect(footer?.querySelector('.app-version')?.textContent).toContain('v1.2.3')
         })
     })

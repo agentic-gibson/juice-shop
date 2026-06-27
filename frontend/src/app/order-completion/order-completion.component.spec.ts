@@ -139,9 +139,9 @@ describe('OrderCompletionComponent', () => {
 
     it('should use configured application name as a fallback for missing twitter URL', () => {
         trackOrderService.find.mockReturnValue(of({ data: [{ products: [] }] }))
-        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { name: 'Hard Commerce Lab', social: { twitterUrl: null } } }))
+        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { name: 'Hard Juice Stop', social: { twitterUrl: null } } }))
         component.ngOnInit()
-        expect(component.tweetText).toBe('I just purchased%0afrom Hard Commerce Lab')
+        expect(component.tweetText).toBe('I just purchased%0afrom Hard Juice Stop')
     })
 
     it('should log error while getting application configuration from backend API directly to browser console', () => {

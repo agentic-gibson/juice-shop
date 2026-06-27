@@ -121,7 +121,7 @@ export const redirectAllowlist = new Set([
   'https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6', // vuln-code-snippet vuln-line redirectCryptoCurrencyChallenge
   'https://bike-shed.example/apparel',
   'https://bike-shed.example/apparel-de',
-  'https://www.stickeryou.com/products/hardcommerce-juice-commerce/794',
+  'https://www.stickeryou.com/products/hardjuicestop-juice-commerce/794',
   'https://bike-shed.example/handbook'
 ])
 
